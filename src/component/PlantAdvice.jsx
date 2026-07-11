@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import './adnpmvice.css';
+import './advice.css';
 
 const plantEmoji = {
   'กะเพรา': '🌿',
