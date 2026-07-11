@@ -1,0 +1,360 @@
+.adv-root {
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  background: #fafaf9;
+  font-family: 'Sarabun', sans-serif;
+  color: #1c1917;
+}
+.adv-root * { box-sizing: border-box; }
+.adv-display { font-family: 'Kanit', 'Sarabun', sans-serif; }
+
+.adv-wrap { max-width: 68rem; margin: 0 auto; padding: 1.5rem; }
+@media (min-width: 768px) { .adv-wrap { padding: 2.5rem; } }
+@media (min-width: 1024px) { .adv-wrap { padding: 3rem 2.5rem; } }
+
+.adv-back-btn {
+  background: rgba(255,255,255,0.9);
+  border: 1px solid #d1fae5;
+  border-radius: 999px;
+  padding: 0.55rem 1.15rem;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: #065f46;
+  cursor: pointer;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 12px -6px rgba(6,78,59,0.2);
+}
+
+.adv-card {
+  background: rgba(255,255,255,0.92);
+  border-radius: 1.75rem;
+  padding: 1.5rem;
+  border: 1px solid #d1fae5;
+  box-shadow: 0 10px 26px -14px rgba(6,78,59,0.15);
+}
+@media (min-width: 1024px) { .adv-card { padding: 1.85rem 2rem; } }
+
+.adv-header {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+.adv-plant-icon {
+  width: 4rem;
+  height: 4rem;
+  flex-shrink: 0;
+  border-radius: 1.2rem;
+  background: #ecfdf5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+.adv-title { margin: 0; font-size: 1.35rem; font-weight: 700; color: #022c22; }
+.adv-sub { margin: 0.3rem 0 0; font-size: 0.85rem; color: #047857; }
+@media (min-width: 768px) { .adv-title { font-size: 1.6rem; } }
+
+/* ---------- Dashboard cards ---------- */
+.adv-dashboard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+@media (min-width: 900px) { .adv-dashboard { grid-template-columns: repeat(4, 1fr); } }
+
+.adv-stat { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.25rem 1.4rem; }
+.adv-stat-label { font-size: 0.78rem; color: #78716c; font-weight: 500; }
+.adv-stat-value { font-family: 'Kanit', sans-serif; font-size: 1.2rem; font-weight: 600; color: #022c22; }
+.adv-health { font-size: 1rem; }
+.adv-next-task { font-size: 1rem; }
+
+.adv-moisture-bar {
+  width: 100%;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: #e7e5e4;
+  overflow: hidden;
+  margin-top: 0.2rem;
+}
+.adv-moisture-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+}
+
+.adv-weather-mini-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.8rem;
+}
+.adv-weather-mini-row .adv-stat-value { font-size: 1.05rem; }
+
+/* ---------- Content layout ---------- */
+.adv-content { display: block; }
+@media (min-width: 1150px) {
+  .adv-content { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1.75rem; align-items: start; }
+}
+.adv-side { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1.5rem; }
+@media (min-width: 1150px) { .adv-side { margin-top: 0; } }
+
+.adv-section-title { font-size: 1.1rem; font-weight: 600; color: #022c22; margin: 0 0 1rem; }
+.adv-section-title-sm { font-size: 1rem; font-weight: 600; color: #022c22; margin: 0 0 0.9rem; }
+
+/* ---------- Calendar month navigation ---------- */
+.adv-calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+.adv-calendar-title { margin: 0; }
+.adv-month-arrows { display: flex; gap: 0.5rem; flex-shrink: 0; }
+.adv-arrow-btn {
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 0.7rem;
+  border: 1px solid #d1fae5;
+  background: #ecfdf5;
+  color: #047857;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.adv-arrow-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.adv-arrow-btn:not(:disabled):hover { background: #d1fae5; }
+
+.adv-month-pills {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.1rem;
+  scrollbar-width: thin;
+}
+.adv-month-pills::-webkit-scrollbar { height: 5px; }
+.adv-month-pills::-webkit-scrollbar-thumb { background: #a7f3d0; border-radius: 999px; }
+.adv-month-pill {
+  flex-shrink: 0;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid #e7e5e4;
+  background: white;
+  color: #57534e;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.adv-month-pill.active { background: #059669; border-color: #059669; color: white; }
+.adv-month-pill:not(.active):hover { border-color: #6ee7b7; color: #047857; }
+
+/* ---------- Legend ---------- */
+.adv-legend { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; margin-bottom: 0.6rem; }
+.adv-legend-item { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; color: #57534e; font-weight: 500; }
+.adv-legend-dot { width: 0.55rem; height: 0.55rem; border-radius: 999px; background: var(--tc); }
+
+.adv-calendar-hint {
+  margin: 0 0 1.1rem;
+  font-size: 0.76rem;
+  color: #a8a29e;
+}
+
+/* ---------- Calendar grid ---------- */
+.adv-weekday-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+.adv-weekday { text-align: center; font-size: 0.75rem; font-weight: 600; color: #059669; }
+
+.adv-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.4rem;
+}
+.adv-cell {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  min-height: 2.6rem;
+  border-radius: 0.75rem;
+  border: 1px solid #f5f5f4;
+  background: #fafaf9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  cursor: pointer;
+  padding: 0;
+  user-select: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.adv-cell-blank { visibility: hidden; cursor: default; }
+.adv-cell-day { font-size: 0.82rem; font-weight: 500; color: #44403c; }
+.adv-cell-today { border-color: #10b981; background: #ecfdf5; }
+.adv-cell-today .adv-cell-day { color: #047857; font-weight: 700; }
+.adv-cell-selected { box-shadow: 0 0 0 2px #059669 inset; }
+.adv-cell-dots { display: flex; gap: 0.15rem; }
+.adv-dot { width: 0.35rem; height: 0.35rem; border-radius: 999px; }
+
+/* วันที่ทำเครื่องหมายว่าทำแล้ว -> เขียวชัดเจน */
+.adv-cell-done {
+  background: #bbf7d0;
+  border-color: #22c55e;
+}
+.adv-cell-done .adv-cell-day { color: #14532d; font-weight: 700; }
+.adv-cell-done .adv-cell-dots { opacity: 0.4; }
+.adv-cell-check {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #15803d;
+}
+
+/* ---------- Popup กลางจอ (ใช้ร่วมกันทั้งแบบแจ้งเตือนปุ่มเดียว และยืนยันสองปุ่ม) ---------- */
+.adv-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.adv-confirm-modal {
+  width: min(100%, 22rem);
+  background: white;
+  border-radius: 1.5rem;
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 24px 48px -12px rgba(0,0,0,0.35);
+}
+
+.adv-confirm-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0 auto 0.9rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--tc) 16%, white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  gap: 0.15rem;
+}
+
+/* ไอคอนของ popup แจ้งเตือนทั่วไป (ไม่มีงาน / ยังไม่ถึงกำหนด) ใช้โทนกลางๆ ไม่ผูกกับสีงาน */
+.adv-confirm-icon-neutral {
+  background: #f5f5f4;
+  font-size: 1.7rem;
+}
+
+.adv-confirm-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #022c22;
+}
+
+.adv-confirm-desc {
+  margin: 0 0 1.35rem;
+  font-size: 0.85rem;
+  color: #57534e;
+  line-height: 1.5;
+}
+
+.adv-confirm-actions {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.adv-confirm-cancel,
+.adv-confirm-ok {
+  flex: 1;
+  border: none;
+  border-radius: 0.9rem;
+  padding: 0.7rem 1rem;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+.adv-confirm-cancel {
+  background: #f5f5f4;
+  color: #57534e;
+}
+.adv-confirm-cancel:hover { background: #e7e5e4; }
+.adv-confirm-ok {
+  background: #059669;
+  color: white;
+}
+.adv-confirm-ok:hover { background: #047857; }
+
+/* popup แจ้งเตือนปุ่มเดียว: ให้ปุ่ม "ตกลง" กว้างเต็มแทนที่จะแบ่งครึ่งกับปุ่มยกเลิก */
+.adv-confirm-ok-full { flex: 1 1 100%; }
+
+/* ---------- Day detail (แสดงผลอย่างเดียว การติ๊กทำที่ปฏิทิน) ---------- */
+.adv-empty-day { color: #78716c; font-size: 0.88rem; margin: 0; }
+.adv-task-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+.adv-task-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #292524;
+  background: color-mix(in srgb, var(--tc) 12%, white);
+  border-radius: 0.85rem;
+  padding: 0.6rem 0.9rem;
+  user-select: none;
+  transition: opacity 0.15s ease;
+}
+.adv-task-icon { font-size: 1.1rem; }
+.adv-task-label { flex: 1; }
+
+.adv-task-check {
+  flex-shrink: 0;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 999px;
+  border: 2px solid var(--tc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: white;
+  background: transparent;
+}
+.adv-task-check.checked { background: var(--tc); }
+
+.adv-task-done { opacity: 0.55; }
+.adv-task-done .adv-task-label { text-decoration: line-through; }
+
+/* ---------- Tips (แบ่งกลุ่มตามระยะ / วิธีปลูก / คำแนะนำทั่วไปของพืชแต่ละชนิด) ---------- */
+.adv-tips-group { margin-bottom: 1.1rem; }
+.adv-tips-group:last-child { margin-bottom: 0; }
+.adv-tips-group-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #059669;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.adv-tips-list { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.adv-tips-list li { font-size: 0.88rem; color: #57534e; line-height: 1.5; }

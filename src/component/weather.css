@@ -1,0 +1,486 @@
+.wx-root {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  font-family: 'Sarabun', sans-serif;
+  color: #1c1917;
+}
+.wx-root * { box-sizing: border-box; }
+.wx-display { font-family: 'Kanit', 'Sarabun', sans-serif; }
+
+.wx-back-btn {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 30;
+  background: rgba(255,255,255,0.85);
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1.2rem;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #065f46;
+  cursor: pointer;
+  box-shadow: 0 4px 14px -4px rgba(0,0,0,0.2);
+}
+
+.wx-sky {
+  position: absolute;
+  inset: 0;
+  transition: background 1.2s ease;
+  overflow: hidden;
+}
+
+/* ---------- ฉากต่างๆ ---------- */
+.wx-scene-day .wx-sky { background: linear-gradient(180deg, #7dd3fc 0%, #bae6fd 45%, #e0f2fe 100%); }
+.wx-scene-hot .wx-sky { background: linear-gradient(180deg, #fb923c 0%, #fdba74 40%, #fef3c7 100%); }
+.wx-scene-cloudy .wx-sky { background: linear-gradient(180deg, #94a3b8 0%, #cbd5e1 45%, #e2e8f0 100%); }
+.wx-scene-rain .wx-sky { background: linear-gradient(180deg, #334155 0%, #475569 45%, #64748b 100%); }
+.wx-scene-evening .wx-sky { background: linear-gradient(180deg, #0f172a 0%, #1e293b 45%, #334155 100%); }
+
+/* ---------- พระอาทิตย์ ---------- */
+.wx-sun {
+  position: absolute;
+  top: 12%;
+  right: 15%;
+  width: 6.5rem;
+  height: 6.5rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fef9c3, #fbbf24 70%);
+  box-shadow: 0 0 70px 20px rgba(251,191,36,0.55);
+}
+.wx-sun-hot {
+  background: radial-gradient(circle at 35% 35%, #fef08a, #f97316 75%);
+  box-shadow: 0 0 90px 30px rgba(249,115,22,0.6);
+}
+
+/* ---------- พระจันทร์ + ดาว ---------- */
+.wx-moon {
+  position: absolute;
+  top: 10%;
+  right: 15%;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #f8fafc, #cbd5e1 75%);
+  box-shadow: 0 0 50px 14px rgba(226,232,240,0.35);
+}
+.wx-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #f8fafc;
+}
+
+/* ---------- เมฆ ---------- */
+.wx-cloud { position: absolute; left: 0; }
+.wx-cloud-shape {
+  position: relative;
+  display: block;
+  width: 5.5rem;
+  height: 2rem;
+  background: rgba(255,255,255,0.9);
+  border-radius: 999px;
+}
+.wx-cloud-shape::before,
+.wx-cloud-shape::after {
+  content: '';
+  position: absolute;
+  background: rgba(255,255,255,0.9);
+  border-radius: 50%;
+}
+.wx-cloud-shape::before { width: 2.6rem; height: 2.6rem; top: -1.2rem; left: 0.6rem; }
+.wx-cloud-shape::after { width: 2rem; height: 2rem; top: -0.8rem; left: 3rem; }
+.wx-scene-cloudy .wx-cloud-shape,
+.wx-scene-cloudy .wx-cloud-shape::before,
+.wx-scene-cloudy .wx-cloud-shape::after { background: rgba(226,232,240,0.9); }
+.wx-scene-rain .wx-cloud-shape,
+.wx-scene-rain .wx-cloud-shape::before,
+.wx-scene-rain .wx-cloud-shape::after { background: rgba(71,85,105,0.85); }
+
+/* ---------- ฝน ---------- */
+.wx-raindrop {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 1.4rem;
+  background: linear-gradient(180deg, rgba(224,242,254,0), rgba(224,242,254,0.85));
+  border-radius: 999px;
+}
+
+/* ---------- คลื่นความร้อน ---------- */
+.wx-heat-haze {
+  position: absolute;
+  bottom: 18%;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,0.5));
+}
+
+/* ---------- พื้นดิน ---------- */
+.wx-ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 42%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.wx-ground-mound {
+  position: absolute;
+  bottom: -6rem;
+  left: -10%;
+  right: -10%;
+  height: 12rem;
+  background: linear-gradient(180deg, #4d7c0f, #365314);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+.wx-scene-evening .wx-ground-mound,
+.wx-scene-rain .wx-ground-mound { background: linear-gradient(180deg, #1a2e05, #14290a); }
+
+/* ---------- ต้นไม้ ---------- */
+.wx-plant-wrap {
+  position: relative;
+  z-index: 10;
+  margin-bottom: 4.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.wx-plant-emoji {
+  font-size: 6.5rem;
+  filter: drop-shadow(0 12px 18px rgba(0,0,0,0.25));
+  line-height: 1;
+}
+.wx-pot {
+  width: 4.5rem;
+  height: 2.4rem;
+  margin-top: -0.4rem;
+  background: linear-gradient(180deg, #b45309, #78350f);
+  clip-path: polygon(12% 0%, 88% 0%, 100% 100%, 0% 100%);
+}
+
+@media (min-width: 768px) {
+  .wx-plant-emoji { font-size: 8.5rem; }
+  .wx-pot { width: 6rem; height: 3rem; }
+}
+
+/* ---------- การ์ดข้อมูลด้านล่าง ---------- */
+/* ---------- การ์ดข้อมูลด้านล่าง (ปรับให้เป็น Popup Overlay) ---------- */
+.wx-info-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(15, 23, 42, 0.2);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 2rem;
+}
+
+.wx-info-card {
+  position: relative;
+  width: min(92%, 32rem);
+  background: rgba(255,255,255,0.95);
+  border-radius: 1.75rem;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 24px 48px -12px rgba(0,0,0,0.35);
+  z-index: 50;
+}
+
+.wx-close-card-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  transition: all 0.2s;
+}
+.wx-close-card-btn:hover { background: #e2e8f0; color: #0f172a; }
+
+/* ---------- ปุ่มเปิดข้อมูลต้นไม้ (ย้ายมาซ้ายล่าง) ---------- */
+.wx-view-info-btn {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem; /* ย้ายมาอยู่ซ้ายล่างตามที่ต้องการ */
+  z-index: 30;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  padding: 0.75rem 1.25rem;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #065f46;
+  cursor: pointer;
+  box-shadow: 0 8px 20px -6px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ---------- ของตกแต่ง (ไม่ให้ฉากโล่ง) ---------- */
+.wx-decor-layer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  pointer-events: none; /* ไม่ให้กั้นการคลิก */
+}
+
+.wx-decor-item {
+  position: absolute;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+}
+
+.wx-grass-line {
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  right: 0;
+  font-size: 2.2rem;
+  line-height: 1;
+  white-space: nowrap;
+  text-align: center;
+  overflow: hidden;
+  opacity: 0.9;
+  letter-spacing: -4px;
+}
+
+.wx-butterfly {
+  animation: float-fly 8s infinite alternate ease-in-out;
+}
+
+@keyframes float-fly {
+  0% { transform: translate(0, 0) rotate(-10deg); }
+  50% { transform: translate(-40px, -30px) rotate(10deg); }
+  100% { transform: translate(30px, -50px) rotate(-5deg); }
+}
+.wx-info-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.wx-info-top h2 { margin: 0; font-size: 1.35rem; font-weight: 600; color: #064e3b; }
+.wx-scene-chip {
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: #ecfdf5;
+  color: #047857;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.wx-info-desc { margin: 0.5rem 0 0.85rem; font-size: 0.9rem; color: #57534e; }
+
+/* ---------- สถิติอากาศ (อุณหภูมิ + ความชื้น จริงจาก OpenWeather) ---------- */
+.wx-stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+.wx-stat-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 0.65rem 0.85rem;
+}
+.wx-stat-icon { font-size: 1.4rem; flex-shrink: 0; }
+.wx-stat-body { display: flex; flex-direction: column; gap: 0.15rem; flex: 1; min-width: 0; }
+.wx-stat-label { font-size: 0.72rem; color: #78716c; font-weight: 500; }
+.wx-stat-value { font-family: 'Kanit', sans-serif; font-size: 1.05rem; font-weight: 600; color: #022c22; }
+.wx-humidity-bar {
+  width: 100%;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: #e2e8f0;
+  overflow: hidden;
+  margin-top: 0.2rem;
+}
+.wx-humidity-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+}
+
+.wx-info-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  font-size: 0.82rem;
+  color: #059669;
+  font-weight: 500;
+}
+
+/* ---------- ใหม่: คำแนะนำปริมาณน้ำ (ในการ์ดข้อมูลด้านล่าง) ---------- */
+.wx-water-section {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 0.75rem 0.9rem;
+  margin-bottom: 0.9rem;
+}
+.wx-water-increase { border-left: 3px solid #f97316; }
+.wx-water-decrease { border-left: 3px solid #0ea5e9; }
+.wx-water-normal { border-left: 3px solid #10b981; }
+
+.wx-water-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.wx-water-label { font-size: 0.78rem; font-weight: 600; color: #78716c; }
+
+.wx-info-btn {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  border: 1.5px solid #a7f3d0;
+  background: #ecfdf5;
+  color: #047857;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.wx-info-btn:hover { background: #d1fae5; border-color: #6ee7b7; }
+
+.wx-water-value {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #022c22;
+  line-height: 1;
+  margin-top: 0.4rem;
+}
+.wx-water-value span { font-size: 0.78rem; font-weight: 500; color: #78716c; margin-left: 0.3rem; }
+
+.wx-water-advice {
+  margin: 0.35rem 0 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.wx-water-advice-increase { color: #c2410c; }
+.wx-water-advice-decrease { color: #0369a1; }
+.wx-water-advice-normal { color: #047857; }
+
+/* ---------- ใหม่: Popup อธิบายสูตรคำนวณน้ำ ---------- */
+.wx-formula-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.wx-formula-modal {
+  width: min(100%, 26rem);
+  max-height: 85vh;
+  overflow-y: auto;
+  background: white;
+  border-radius: 1.5rem;
+  padding: 1.75rem 1.5rem;
+  text-align: left;
+  box-shadow: 0 24px 48px -12px rgba(0,0,0,0.35);
+}
+
+.wx-formula-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0 auto 0.9rem;
+  border-radius: 999px;
+  background: #f5f5f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+}
+
+.wx-formula-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #022c22;
+  text-align: center;
+}
+
+.wx-formula-intro {
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
+  color: #57534e;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.wx-formula-list {
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.wx-formula-list li {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.9rem;
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.wx-formula-step { font-size: 0.78rem; color: #78716c; font-weight: 500; }
+.wx-formula-eq { font-family: 'Kanit', sans-serif; font-size: 0.9rem; font-weight: 600; color: #022c22; }
+.wx-formula-final { color: #047857; }
+
+.wx-formula-note {
+  margin: 0 0 1.25rem;
+  font-size: 0.76rem;
+  color: #a8a29e;
+  line-height: 1.5;
+}
+
+.wx-formula-ok {
+  width: 100%;
+  border: none;
+  border-radius: 0.9rem;
+  padding: 0.7rem 1rem;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  background: #059669;
+  color: white;
+}
+.wx-formula-ok:hover { background: #047857; }
