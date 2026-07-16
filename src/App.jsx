@@ -21,12 +21,12 @@ function App() {
   const [selectedPlant, setSelectedPlant] = useState(null);
 
   const plantOptions = [
-    { name: 'กะเพรา', emoji: '🌿' },
-    { name: 'มะเขือเทศ', emoji: '🍅' },
-    { name: 'ว่านหางจระเข้', emoji: '🪴' },
-    { name: 'ผักกาดหอม', emoji: '🥬' },
-    { name: 'กระบองเพชร', emoji: '🌵' },
-  ];
+  { name: 'พริก', emoji: '🌶️' },
+  { name: 'ผักชีฝรั่ง', emoji: '🍃' },
+  { name: 'โหระพา', emoji: '🌿' },
+  { name: 'กะเพรา', emoji: '🍀' },
+  { name: 'ตะไคร้', emoji: '🌾' },
+];
 
   const stageOptions = ['เมล็ด', 'ต้นกล้า', 'โตเต็มวัย'];
   const methodOptions = [
