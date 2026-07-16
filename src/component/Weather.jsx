@@ -3,11 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import './weather.css';
 
 const plantEmoji = {
-  'กะเพรา': '🌿',
-  'มะเขือเทศ': '🍅',
-  'ว่านหางจระเข้': '🪴',
-  'ผักกาดหอม': '🥬',
-  'กระบองเพชร': '🌵',
+  'พริก': '🌶️',
+  'ผักชีฝรั่ง': '🍃',
+  'โหระพา': '🌿',
+  'กะเพรา': '🍀',
+  'ตะไคร้': '🌾',
 };
 
 function getSceneKey(weather) {
@@ -27,7 +27,13 @@ const SCENES = {
   evening: { className: 'wx-scene-evening', icon: '🌙', title: 'อากาศเย็น ยามพลบค่ำ', desc: 'อุณหภูมิลดลง เหมาะกับการพักตัวของต้นไม้' },
 };
 
-const BASE_WATER_ML = { 'กะเพรา': 200, 'มะเขือเทศ': 350, 'ว่านหางจระเข้': 80, 'ผักกาดหอม': 150, 'กระบองเพชร': 40 };
+const BASE_WATER_ML = {
+  'พริก': 250,
+  'ผักชีฝรั่ง': 150,
+  'โหระพา': 200,
+  'กะเพรา': 200,
+  'ตะไคร้': 300,
+};
 const WATER_FORMULA = { tempRef: 28, tempStep: 0.03, humidityRef: 50, humidityStep: 0.01, minFactor: 0.6, maxFactor: 1.6 };
 
 function clampFactor(f) {
