@@ -11,6 +11,17 @@ const plantEmoji = {
   'ตะไคร้': '🌾',
 };
 
+// ⚠️ จุดที่หายไปคือตรงนี้ทั้งก้อน — TASK_TYPES ถูกใช้ทั่วทั้งไฟล์
+// (buildCarePlan, buildMonthTasks, legend, task list) แต่ไม่เคยถูกประกาศไว้เลย
+// ทำให้ component โยน "TASK_TYPES is not defined" ตั้งแต่ยังไม่ทัน render
+const TASK_TYPES = {
+  water: { label: 'รดน้ำ', icon: '💧', color: '#0ea5e9' },
+  fertilize: { label: 'ใส่ปุ๋ย', icon: '🌾', color: '#ca8a04' },
+  prune: { label: 'ตัดแต่งกิ่ง', icon: '✂️', color: '#db2777' },
+  sunlight: { label: 'ย้ายรับแดด', icon: '☀️', color: '#f97316' },
+  inspect: { label: 'ตรวจใบ/ศัตรูพืช', icon: '🔍', color: '#65a30d' },
+};
+
 const CARE_PLAN = {
   'พริก': {
     water: 2, fertilize: 12, prune: 20, inspect: 7,
@@ -42,8 +53,8 @@ const CARE_PLAN = {
 const STAGE_MODIFIERS = {
   'เมล็ด': {
     health: 'เพิ่งเพาะเมล็ด ต้องดูแลใกล้ชิดเป็นพิเศษ',
-    waterFactor: 0.5, // รดน้ำถี่ขึ้น (จำนวนวันต่อรอบน้อยลง)
-    disableTasks: ['prune', 'fertilize'], // เมล็ดยังไม่ต้องตัดแต่งหรือใส่ปุ๋ย
+    waterFactor: 0.5,
+    disableTasks: ['prune', 'fertilize'],
     tips: [
       'รดน้ำเป็นละอองฝอยเบาๆ อย่าให้ดินแฉะจนเมล็ดลอย',
       'คลุมด้วยพลาสติกใสหรือกระดาษชื้นช่วยรักษาความชื้นจนกว่าจะงอก',
@@ -53,7 +64,7 @@ const STAGE_MODIFIERS = {
   'ต้นกล้า': {
     health: 'ต้นกล้ากำลังเติบโต ต้องระวังเรื่องแสงและความชื้น',
     waterFactor: 0.75,
-    disableTasks: ['prune'], // ต้นกล้ายังเล็กเกินไปที่จะตัดแต่งกิ่ง
+    disableTasks: ['prune'],
     tips: [
       'ค่อยๆ ให้ต้นกล้ารับแดดเพิ่มขึ้นทีละน้อย (Hardening off)',
       'ระวังโรคเน่าคอดินจากความชื้นสะสมมากเกินไป',
@@ -61,7 +72,7 @@ const STAGE_MODIFIERS = {
     ],
   },
   'โตเต็มวัย': {
-    health: null, // ใช้ค่า health เดิมของพืชแต่ละชนิดจาก CARE_PLAN
+    health: null,
     waterFactor: 1,
     disableTasks: [],
     tips: [],
@@ -96,15 +107,14 @@ function buildCarePlan(plantType, stage, method) {
 
   const plan = {};
   Object.keys(TASK_TYPES).forEach((key) => {
-    if (base[key] == null) return; // งานนี้ไม่เกี่ยวกับพืชชนิดนี้เลย
-    if (stageMod.disableTasks.includes(key)) return; // ระยะนี้ยังไม่ต้องทำงานนี้
+    if (base[key] == null) return;
+    if (stageMod.disableTasks.includes(key)) return;
     const factor = key === 'water' ? stageMod.waterFactor * methodMod.waterFactor : 1;
     plan[key] = Math.max(1, Math.round(base[key] * factor));
   });
 
   plan.health = stageMod.health || base.health;
 
-  // แยกเคล็ดลับเป็น 3 กลุ่ม เพื่อให้เห็นชัดว่าแตกต่างกันตามระยะ/วิธีปลูก/พืชแต่ละชนิด
   plan.tipGroups = [
     { title: `ตามระยะ: ${stage}`, tips: stageMod.tips },
     { title: `ตามวิธีปลูก: ${method === 'กระถาง' ? 'ปลูกในกระถาง' : 'ปลูกลงดิน'}`, tips: methodMod.tips },
@@ -175,11 +185,7 @@ function PlantAdvice({ plant, weather, onBack }) {
   const [selectedDay, setSelectedDay] = useState(todayDate);
 
   const [completedTasks, setCompletedTasks] = useState({});
-
-  // State สำหรับ Popup แจ้งเตือนทั่วไป (แทน Toast)
   const [alertData, setAlertData] = useState(null);
-
-  // State สำหรับยืนยันการทำแล้ว/ยังไม่ทำ
   const [pendingConfirm, setPendingConfirm] = useState(null);
 
   useEffect(() => {
@@ -192,21 +198,18 @@ function PlantAdvice({ plant, weather, onBack }) {
 
   const taskKey = (y, m, d, t) => `${y}-${m}-${d}:${t}`;
 
-  // เช็กว่าเป็นอนาคตหรือไม่
   const isFutureDay = (y, m, d) => {
     const target = new Date(y, m, d);
     const now = new Date(todayYear, todayMonth, todayDate);
     return target.getTime() > now.getTime();
   };
 
-  // เช็กว่าเป็นอดีตที่เลยมาแล้วหรือไม่
   const isPastDay = (y, m, d) => {
     const target = new Date(y, m, d);
     const now = new Date(todayYear, todayMonth, todayDate);
     return target.getTime() < now.getTime();
   };
 
-  // ดับเบิลคลิกที่ "วันในปฏิทิน"
   const handleDayDoubleClick = (y, m, d) => {
     const monthEntry = monthsData.find((entry) => entry.year === y && entry.month === m);
     const tasks = monthEntry?.map[d] || [];
@@ -300,7 +303,6 @@ function PlantAdvice({ plant, weather, onBack }) {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.35 }}
     >
-      {/* ใช้ createPortal เพื่อโยน Popup ไปที่ document.body ให้ลอยกลางจอเสมอ */}
       {createPortal(
         <>
           <AnimatePresence>
@@ -417,7 +419,6 @@ function PlantAdvice({ plant, weather, onBack }) {
           </div>
         </motion.header>
 
-        {/* Dashboard cards */}
         <div className="adv-dashboard">
           <motion.div className="adv-card adv-stat" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
             <span className="adv-stat-label">สภาพอากาศตอนนี้</span>
@@ -459,7 +460,6 @@ function PlantAdvice({ plant, weather, onBack }) {
         </div>
 
         <div className="adv-content">
-          {/* ปฏิทิน */}
           <section className="adv-card adv-calendar-card">
             <div className="adv-calendar-nav">
               <h2 className="adv-display adv-section-title adv-calendar-title">
@@ -562,7 +562,6 @@ function PlantAdvice({ plant, weather, onBack }) {
             </AnimatePresence>
           </section>
 
-          {/* งานของวันที่เลือก + เคล็ดลับ */}
           <div className="adv-side">
             <section className="adv-card adv-day-card">
               <h3 className="adv-display adv-section-title-sm">
